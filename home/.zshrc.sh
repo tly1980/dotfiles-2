@@ -292,6 +292,8 @@ function preview() {
   open $1 -a 'Preview'
 }
 
+# Google Cloud SDK
+export CLOUDSDK_PYTHON=/usr/bin/python
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/tt/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/tt/google-cloud-sdk/path.zsh.inc'; fi
