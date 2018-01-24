@@ -23,9 +23,3 @@ if (( $+commands[fortune] )); then
   fortune -a
   print
 fi
-
-
-### Added by the Heroku Toolbelt
-[[ -d '/usr/local/heroku/bin' ]] && export PATH="/usr/local/heroku/bin:$PATH"
-
-[[ -d "~/bin" ]] && export PATH="~/bin:$PATH"

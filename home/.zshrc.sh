@@ -15,8 +15,8 @@ autoload -U colors && colors
 # Load and execute the prompt theming system.
 fpath=("$curr/terminal" $fpath)
 autoload -Uz promptinit && promptinit
-echo "prompt ${prompt_theme}"
-prompt 'tt'
+prompt_theme='tt'
+prompt "${prompt_theme}"
 
 # ==================================================================
 # = Aliases =
@@ -258,54 +258,6 @@ function aes-dec() {
   openssl enc -aes-256-cbc -d -in $1 -out "${1%.*}"
 }
 
-# Converts a.mkv to a.m4v.
-function mkv2mp4() {
-  for file in "$@"; do
-    ffmpeg -i $file -map 0 -c copy "${file%.*}.m4v"
-  done
-}
-
-function mkv2mp4_1() {
-  for file in "$@"; do
-    ffmpeg -i $file -map 0:0 -map 0:1 -c copy -c:s mov_text "${file%.*}.m4v"
-  done
-}
-
-function mkv2mp4_2() {
-  for file in "$@"; do
-    ffmpeg -i $file -map 0:0 -map 0:2 -c copy -c:s mov_text "${file%.*}.m4v"
-  done
-}
-
-function mkv2mp4_3() {
-  for file in "$@"; do
-    ffmpeg -i $file -map 0:0 -map 0:3 -c copy -c:s mov_text "${file%.*}.m4v"
-  done
-}
-
-# Adds subs from a.srt to a.m4v.
-function addsubs() {
-  for file in "$@"; do
-    local raw="${file%.*}"
-    local old="$raw.m4v"
-    local new="$raw-sub.m4v"
-    ffmpeg -i $old -i $file -map 0 -map 1 -c copy -c:s mov_text $new
-    mv $new $old
-    rm $file
-  done
-}
-
-
-# Shortens GitHub URLs. By Sorin Ionescu <sorin.ionescu@gmail.com>
-function gitio() {
-  local url="$1"
-  local code="$2"
-
-  [[ -z "$url" ]] && print "usage: $0 url code" >&2 && exit
-  [[ -z "$code" ]] && print "usage: $0 url code" >&2 && exit
-
-  curl -s -i 'http://git.io' -F "url=$url" -F "code=$code"
-}
 
 # Monitor IO in real-time (open files etc).
 function openfiles() {
@@ -339,3 +291,10 @@ function preview() {
   [[ -z "$item" ]] && item='.'
   open $1 -a 'Preview'
 }
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/tt/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/tt/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/tt/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tt/google-cloud-sdk/completion.zsh.inc'; fi
