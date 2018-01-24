@@ -152,16 +152,6 @@ function edit() {
 }
 alias e=edit
 
-# Execute commands for each file in current directory.
-function each() {
-  for dir in *; do
-    # echo "${dir}:"
-    cd $dir
-    $@
-    cd ..
-  done
-}
-
 # Find files and exec commands at them.
 # $ find-exec .coffee cat | wc -l
 # # => 9762
@@ -172,31 +162,6 @@ function find-exec() {
 # Better find(1)
 function ff() {
   find . -iname "*${1:-}*"
-}
-
-# Count code lines in some directory.
-# $ loc py js css
-# # => Lines of code for .py: 3781
-# # => Lines of code for .js: 3354
-# # => Lines of code for .css: 2970
-# # => Total lines of code: 10105
-function loc() {
-  local total
-  local firstletter
-  local ext
-  local lines
-  total=0
-  for ext in $@; do
-    firstletter=$(echo $ext | cut -c1-1)
-    if [[ firstletter != "." ]]; then
-      ext=".$ext"
-    fi
-    lines=`find-exec "*$ext" cat | wc -l`
-    lines=${lines// /}
-    total=$(($total + $lines))
-    echo "Lines of code for ${fg[blue]}$ext${reset_color}: ${fg[green]}$lines${reset_color}"
-  done
-  echo "${fg[blue]}Total${reset_color} lines of code: ${fg[green]}$total${reset_color}"
 }
 
 # Show how much RAM application uses.
