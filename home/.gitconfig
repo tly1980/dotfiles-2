@@ -1,9 +1,9 @@
 [user]
-	name = Paul Miller
-	email = paul@paulmillr.com
+	name = Tom Tang
+	email = tly1980@gmail.com
 
 [github]
-  user = paulmillr
+  user = tly1980
 
 [alias]
   discard = reset --hard HEAD

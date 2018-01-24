@@ -21,9 +21,6 @@ prompt 'paulmillr'
 # = Aliases =
 # ==================================================================
 
-alias -g f2='| head -n 2'
-alias -g f10='| head -n 10'
-alias -g l10='| tail -n 10'
 # Simple clear command.
 alias cl='clear'
 
@@ -39,22 +36,12 @@ alias lint=jshint
 # Some macOS-only stuff.
 if [[ "$OSTYPE" == darwin* ]]; then
   # Short-cuts for copy-paste.
-  alias c='pbcopy'
-  alias p='pbpaste'
-
-  # Remove all items safely, to Trash (`brew install trash`).
-  alias rm='trash'
 
   # Lock current session and proceed to the login screen.
   alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
   # Sniff network info.
   alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
-
-  # Developer tools shortcuts.
-  alias tower='gittower'
-  alias t='gittower'
-
   # Process grep should output full paths to binaries.
   alias pgrep='pgrep -fli'
 else
@@ -62,74 +49,6 @@ else
   alias pgrep='pgrep -fl'
 fi
 
-# Git short-cuts.
-alias g='git'
-alias ga='git add'
-alias gr='git rm'
-
-alias gf='git fetch'
-alias gu='git pull'
-alias gup='git pull && git push'
-
-alias gs='git status --short'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gdn='git diff --name-only'
-alias gdisc='git discard'
-
-alias grao='git remote add origin'
-
-function gc() {
-  args=$@
-  git commit -m "$args"
-}
-function gca() {
-  args=$@
-  git commit --amend -m "$args"
-}
-
-function cherry() {
-  is_range=''
-  case "$1" in # `sh`-compatible substring.
-    *\.*)
-    is_range='1'
-  ;;
-  esac
-  # Check if it's one commit vs set of commits.
-  if [ "$#" -eq 1 ] && [[ $is_range ]]; then
-    log=$(git rev-list --reverse --topo-order $1 | xargs)
-    setopt sh_word_split 2> /dev/null # Ignore for `sh`.
-    commits=(${log}) # Convert string to array.
-    unsetopt sh_word_split 2> /dev/null # Ignore for `sh`.
-  else
-    commits=("$@")
-  fi
-
-  total=${#commits[@]} # Get last array index.
-  echo "Picking $total commits:"
-  for commit in ${commits[@]}; do
-    echo $commit
-    git cherry-pick -n $commit || break
-    [[ CC -eq 1 ]] && cherrycc $commit
-  done
-}
-
-alias gp='git push'
-
-function gcp() {
-  title="$@"
-  git commit -am $title && git push -u origin
-}
-alias gcl='git clone'
-alias gch='git checkout'
-alias gbr='git branch'
-alias gbrcl='git checkout --orphan'
-alias gbrd='git branch -D'
-function gl() {
-  count=$1
-  [[ -z "$1" ]] && count=10
-  git graph --no-merges | head -n $count
-}
 
 # own git workflow in hy origin with Tower
 
