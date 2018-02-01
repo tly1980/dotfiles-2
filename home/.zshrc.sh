@@ -265,3 +265,8 @@ if [ -f '/Users/tt/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/tt/goog
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/tt/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tt/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+function killapp() {
+  kill -9 $(ps aux | grep server.js | awk '{print $2}')
+}
