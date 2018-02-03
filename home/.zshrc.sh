@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-
+echo "zshrc aaa $PATH"
 curr="$pm/dotfiles"
 
 # Load main files.
@@ -270,3 +270,12 @@ if [ -f '/Users/tt/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/t
 function killapp() {
   kill -9 $(ps aux | grep server.js | awk '{print $2}')
 }
+
+### This is for pyenv path
+export PYENV_ROOT="$HOME/.pyenv"
+
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+   eval "$(pyenv init -)"
+fi
+eval "$(pyenv virtualenv-init -)"
