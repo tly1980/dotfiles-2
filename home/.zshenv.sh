@@ -106,10 +106,11 @@ if [[ -d "$TMPDIR" ]]; then
   fi
 fi
 
+export SPK_PATH="/Users/tt/workspace/spark-2.3.0-bin-hadoop2.7/bin"
 
 BROWSER=''
 unset BROWSER
 
 export NODE_PATH='/usr/local/lib/node_modules'
 
-export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.bin:$PATH:$SPK_PATH"
